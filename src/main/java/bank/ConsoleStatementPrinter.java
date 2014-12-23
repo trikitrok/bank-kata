@@ -2,12 +2,19 @@ package bank;
 
 public class ConsoleStatementPrinter implements StatementPrinter {
 
-	public ConsoleStatementPrinter(Console console) {
+	private final TransactionPrinter transactionPrinter;
 
+	public ConsoleStatementPrinter(final TransactionPrinter transactionPrinter) {
+		this.transactionPrinter = transactionPrinter;
 	}
 
-	public void printStatementFor(Transactions transactions) {
+	@Override
+	public void printStatementFor(final Transactions transactions) {
+		final TransactionSet transactionSet = transactions.getAll();
 
+		for (final Transaction transaction : transactionSet) {
+			transactionPrinter.print(transaction);
+		}
 	}
 
 }

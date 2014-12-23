@@ -6,4 +6,6 @@ public interface Transactions {
 
 	Boolean contains(Transaction transaction);
 
+	TransactionSet getAll();
+
 }
