@@ -11,35 +11,35 @@ import bank.StatementPrinter;
 import bank.Transactions;
 
 public class AccountShould {
-    StatementPrinter statementPrinter;
-    private Transactions transactions;
-    private Account account;
+	StatementPrinter statementPrinter;
+	private Transactions transactions;
+	private Account account;
 
-    @Before
-    public void setUp() {
-        statementPrinter = mock(StatementPrinter.class);
-        transactions = mock(Transactions.class);
-        account = new Account(statementPrinter, transactions);
-    }
+	@Before
+	public void setUp() {
+		statementPrinter = mock(StatementPrinter.class);
+		transactions = mock(Transactions.class);
+		account = new Account(statementPrinter, transactions);
+	}
 
-    @Test
-    public void register_transaction_for_a_deposit() {
-        account.deposit(100);
+	@Test
+	public void register_transaction_for_a_deposit() {
+		account.deposit(100);
 
-        verify(transactions).register(100);
-    }
+		verify(transactions).register(100);
+	}
 
-    @Test
-    public void register_transaction_for_a_withdraw() {
-        account.withdraw(100);
+	@Test
+	public void register_transaction_for_a_withdraw() {
+		account.withdraw(100);
 
-        verify(transactions).register(-100);
-    }
+		verify(transactions).register(-100);
+	}
 
-    @Test
-    public void print_statements() {
-        account.printStatement();
+	@Test
+	public void print_statements() {
+		account.printStatement();
 
-        verify(statementPrinter).printStatementFor(transactions);
-    }
+		verify(statementPrinter).printStatementFor(transactions);
+	}
 }

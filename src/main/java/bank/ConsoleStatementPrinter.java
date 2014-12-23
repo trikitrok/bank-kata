@@ -2,12 +2,12 @@ package bank;
 
 public class ConsoleStatementPrinter implements StatementPrinter {
 
-    public ConsoleStatementPrinter(Console console) {
+	public ConsoleStatementPrinter(Console console) {
 
-    }
+	}
 
-    public void printStatementFor(Transactions transactions) {
+	public void printStatementFor(Transactions transactions) {
 
-    }
+	}
 
 }
