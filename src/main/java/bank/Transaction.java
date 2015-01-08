@@ -44,4 +44,12 @@ public class Transaction {
 		}
 		return true;
 	}
+
+	public int amount() {
+		return amount;
+	}
+
+	public LocalDateTime date() {
+		return date;
+	}
 }

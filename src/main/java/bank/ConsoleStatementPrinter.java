@@ -2,10 +2,11 @@ package bank;
 
 public class ConsoleStatementPrinter implements StatementPrinter {
 
-	private final TransactionPrinter transactionPrinter;
+	private final StatementLineFormatter statementLineFormatter;
 
-	public ConsoleStatementPrinter(final TransactionPrinter transactionPrinter) {
-		this.transactionPrinter = transactionPrinter;
+	public ConsoleStatementPrinter(
+			final StatementLineFormatter statementLineFormatter) {
+		this.statementLineFormatter = statementLineFormatter;
 	}
 
 	@Override
@@ -13,7 +14,7 @@ public class ConsoleStatementPrinter implements StatementPrinter {
 		final TransactionSet transactionSet = transactions.getAll();
 
 		for (final Transaction transaction : transactionSet) {
-			transactionPrinter.print(transaction);
+			statementLineFormatter.print(new StatementLine(transaction, 0));
 		}
 	}
 

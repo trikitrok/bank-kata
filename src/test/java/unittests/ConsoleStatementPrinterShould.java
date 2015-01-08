@@ -13,24 +13,24 @@ import org.junit.Test;
 
 import bank.ConsoleStatementPrinter;
 import bank.InMemoryTransactions;
+import bank.StatementLine;
+import bank.StatementLineFormatter;
 import bank.StatementPrinter;
 import bank.SystemDate;
-import bank.Transaction;
-import bank.TransactionPrinter;
 import bank.TransactionSet;
 import bank.Transactions;
 
 public class ConsoleStatementPrinterShould {
 
-	private static final TransactionPrinter UNUSED_TRANSACTION_PRINTER = null;
+	private static final StatementLineFormatter UNUSED_STATEMENT_FORMATTER = null;
 
 	@Test
 	public void asks_the_repository_to_get_transactions() {
 		final StatementPrinter statementPrinter = new ConsoleStatementPrinter(
-				UNUSED_TRANSACTION_PRINTER);
+				UNUSED_STATEMENT_FORMATTER);
 		final Transactions transactions = mock(Transactions.class);
 		when(transactions.getAll()).thenReturn(
-		        new TransactionSet(new ArrayList()));
+				new TransactionSet(new ArrayList()));
 
 		statementPrinter.printStatementFor(transactions);
 
@@ -40,9 +40,9 @@ public class ConsoleStatementPrinterShould {
 	@Test
 	public void prints_each_transaction() {
 
-		final TransactionPrinter transactionPrinter = mock(TransactionPrinter.class);
+		final StatementLineFormatter statementLineFormatter = mock(StatementLineFormatter.class);
 		final StatementPrinter statementPrinter = new ConsoleStatementPrinter(
-				transactionPrinter);
+				statementLineFormatter);
 		final SystemDate systemDate = mock(SystemDate.class);
 		when(systemDate.now()).thenReturn(LocalDateTime.now());
 		final Transactions transactions = new InMemoryTransactions(
@@ -52,7 +52,8 @@ public class ConsoleStatementPrinterShould {
 
 		statementPrinter.printStatementFor(transactions);
 
-		verify(transactionPrinter, times(2)).print(any(Transaction.class));
+		verify(statementLineFormatter, times(2))
+		        .print(any(StatementLine.class));
 	}
 
 }
