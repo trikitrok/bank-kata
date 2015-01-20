@@ -2,10 +2,12 @@ package bank;
 
 public interface Transactions {
 
-	void register(int amount);
+    void register(int amount);
 
-	Boolean contains(Transaction transaction);
+    Boolean contains(Transaction transaction);
 
-	TransactionSet getAll();
+    TransactionSet getAllInAdditionOrder();
+
+    TransactionSet getAllInReversedAdditionOrder();
 
 }
