@@ -1,9 +1,11 @@
 package bank;
 
+import java.time.LocalDateTime;
+
 public class SystemDate {
 
-    public String now() {
-        return null;
-    }
+	public LocalDateTime now() {
+		return LocalDateTime.now();
+	}
 
 }

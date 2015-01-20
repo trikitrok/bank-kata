@@ -1,26 +1,26 @@
 package bank;
 
-
 public class Account {
 
-    private final Transactions transactions;
-    private StatementPrinter statementPrinter;
+	private final Transactions transactions;
+	private final StatementPrinter statementPrinter;
 
-    public Account(StatementPrinter statementPrinter, Transactions transactions) {
-        this.transactions = transactions;
-        this.statementPrinter = statementPrinter;
-    }
+	public Account(final StatementPrinter statementPrinter,
+	        final Transactions transactions) {
+		this.transactions = transactions;
+		this.statementPrinter = statementPrinter;
+	}
 
-    public void deposit(int amount) {
-        transactions.register(amount);
-    }
+	public void deposit(final int amount) {
+		transactions.register(amount);
+	}
 
-    public void withdraw(int amount) {
-        transactions.register(-amount);
-    }
+	public void withdraw(final int amount) {
+		transactions.register(-amount);
+	}
 
-    public void printStatement() {
-        statementPrinter.printStatementFor(transactions);
-    }
+	public void printStatement() {
+		statementPrinter.printStatementFor(transactions);
+	}
 
 }
