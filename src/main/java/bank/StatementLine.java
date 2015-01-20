@@ -1,28 +1,28 @@
 package bank;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class StatementLine {
 
-	private final Transaction transaction;
-	private final int balance;
+    private final Transaction transaction;
+    private final int balance;
 
-	public StatementLine(final Transaction transaction, final int balance) {
-		this.transaction = transaction;
-		this.balance = balance;
-	}
+    public StatementLine(final Transaction transaction, final int balance) {
+        this.transaction = transaction;
+        this.balance = balance;
+    }
 
-	public int amount() {
-		// TODO Auto-generated method stub
-		return transaction.amount();
-	}
+    public int amount() {
+        // TODO Auto-generated method stub
+        return transaction.amount();
+    }
 
-	public LocalDateTime date() {
-		return transaction.date();
-	}
+    public Date date() {
+        return transaction.date();
+    }
 
-	public int balance() {
-		return balance;
-	}
+    public int balance() {
+        return balance;
+    }
 
 }
