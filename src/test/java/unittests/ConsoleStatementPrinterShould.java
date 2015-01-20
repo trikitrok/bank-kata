@@ -1,85 +1,65 @@
 package unittests;
 
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import org.junit.Test;
-import org.mockito.InOrder;
 
 import bank.Console;
 import bank.ConsoleStatementPrinter;
-import bank.InMemoryTransactions;
 import bank.StatementLine;
 import bank.StatementLineFormatter;
 import bank.StatementPrinter;
 import bank.SystemDate;
 import bank.Transaction;
-import bank.TransactionSet;
-import bank.Transactions;
 
 public class ConsoleStatementPrinterShould {
 
     @Test
-    public void ask_the_repository_to_get_transactions() {
-        final TransactionSet emptyTransactionSet = new TransactionSet(new ArrayList<Transaction>());
-        final StatementLineFormatter notCalledStatementLineFormatter = null;
-        final Console notCalledConsole = null;
+    public void print_the_header() {
 
-        final StatementPrinter statementPrinter = new ConsoleStatementPrinter(notCalledConsole,
-                notCalledStatementLineFormatter);
-        final Transactions transactions = mock(Transactions.class);
+        Console console = mock(Console.class);
+        final StatementLineFormatter unusedStatementLinePrinter = null;
 
-        when(transactions.getAllInAdditionOrder()).thenReturn(emptyTransactionSet);
+        final StatementPrinter statementPrinter = new ConsoleStatementPrinter(console,
+                unusedStatementLinePrinter);
 
-        statementPrinter.printStatementFor(transactions);
+        statementPrinter.printHeader();
 
-        verify(transactions).getAllInAdditionOrder();
+        verify(console).printLine("DATE | AMOUNT | BALANCE");
     }
 
     @Test
-    public void print_each_transaction() {
+    public void ask_to_format_a_statement_line() {
 
+        Console console = mock(Console.class);
         final StatementLineFormatter statementLineFormatter = mock(StatementLineFormatter.class);
-
-        final StatementPrinter statementPrinter = new ConsoleStatementPrinter(mock(Console.class),
+        final StatementPrinter statementPrinter = new ConsoleStatementPrinter(console,
                 statementLineFormatter);
-        final SystemDate systemDate = mock(SystemDate.class);
-        when(systemDate.now()).thenReturn(new Date());
-        final Transactions transactions = new InMemoryTransactions(systemDate);
-        transactions.register(100);
-        transactions.register(-100);
+        StatementLine statementLine = new StatementLine(
+                new Transaction(100, new SystemDate().now()), 100);
 
-        statementPrinter.printStatementFor(transactions);
+        statementPrinter.printStatementLine(statementLine);
 
-        verify(statementLineFormatter, times(2)).print(any(StatementLine.class));
+        verify(statementLineFormatter).format(statementLine);
     }
 
     @Test
-    public void compute_balance() {
-
+    // This is a side effect - should fail when changing the formatting
+    public void print_a_formatted_line_on_the_console() {
+        final String anyFormattedStatementLine = "whatever";
+        Console console = mock(Console.class);
         final StatementLineFormatter statementLineFormatter = mock(StatementLineFormatter.class);
-        final StatementPrinter statementPrinter = new ConsoleStatementPrinter(mock(Console.class),
+        when(statementLineFormatter.format(any(StatementLine.class))).thenReturn(
+                anyFormattedStatementLine);
+        final StatementPrinter statementPrinter = new ConsoleStatementPrinter(console,
                 statementLineFormatter);
-        final SystemDate systemDate = mock(SystemDate.class);
-        when(systemDate.now()).thenReturn(new Date(114, 11, 1));
-        final Transactions transactions = new InMemoryTransactions(systemDate);
-        transactions.register(100);
-        transactions.register(-100);
-        InOrder inOrder = inOrder(statementLineFormatter);
+        StatementLine statementLine = null;
 
-        statementPrinter.printStatementFor(transactions);
+        statementPrinter.printStatementLine(statementLine);
 
-        inOrder.verify(statementLineFormatter).print(
-                new StatementLine(new Transaction(-100, new Date(114, 11, 1)), 0));
-
-        inOrder.verify(statementLineFormatter).print(
-                new StatementLine(new Transaction(100, new Date(114, 11, 1)), 100));
+        verify(console).printLine(anyFormattedStatementLine);
     }
 }

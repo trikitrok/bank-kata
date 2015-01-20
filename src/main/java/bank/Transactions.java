@@ -6,8 +6,6 @@ public interface Transactions {
 
     Boolean contains(Transaction transaction);
 
-    TransactionSet getAllInAdditionOrder();
-
-    TransactionSet getAllInReversedAdditionOrder();
+    Statement generateStatement();
 
 }

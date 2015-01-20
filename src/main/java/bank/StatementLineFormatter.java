@@ -7,7 +7,7 @@ public class StatementLineFormatter {
 
     private static final String FIELD_SEPARATOR = " | ";
 
-    public String print(final StatementLine statementLine) {
+    public String format(final StatementLine statementLine) {
         return formatDate(statementLine.date()) + FIELD_SEPARATOR
                 + formatMoney(statementLine.amount()) + FIELD_SEPARATOR
                 + formatMoney(statementLine.balance());

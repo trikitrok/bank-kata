@@ -3,6 +3,7 @@ package bank;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 
 public class InMemoryTransactions implements Transactions {
 
@@ -25,15 +26,20 @@ public class InMemoryTransactions implements Transactions {
     }
 
     @Override
-    public TransactionSet getAllInReversedAdditionOrder() {
+    public Statement generateStatement() {
+        Stack<StatementLine> statementLinesInReverseOrder = new Stack<>();
+        int balance = 0;
+        for (final Transaction transaction : transactions) {
+            balance += transaction.amount();
+            statementLinesInReverseOrder.push(new StatementLine(transaction, balance));
+        }
 
-        List<Transaction> transactionsInReversedAdditionOrder = new ArrayList<>(transactions);
-        Collections.reverse(transactionsInReversedAdditionOrder);
-        return new TransactionSet(transactionsInReversedAdditionOrder);
-    }
+        List<StatementLine> statementLines = new ArrayList<StatementLine>();
 
-    @Override
-    public TransactionSet getAllInAdditionOrder() {
-        return new TransactionSet(transactions);
+        while (!statementLinesInReverseOrder.isEmpty()) {
+            statementLines.add(statementLinesInReverseOrder.pop());
+        }
+
+        return new Statement(statementLines);
     }
 }

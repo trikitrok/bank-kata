@@ -2,6 +2,8 @@ package bank;
 
 public interface StatementPrinter {
 
-    void printStatementFor(Transactions transactions);
+    void printStatementLine(StatementLine statementLine);
+
+    void printHeader();
 
 }

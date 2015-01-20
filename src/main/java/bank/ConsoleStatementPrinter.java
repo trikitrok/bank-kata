@@ -14,28 +14,13 @@ public class ConsoleStatementPrinter implements StatementPrinter {
     }
 
     @Override
-    public void printStatementFor(final Transactions transactions) {
-        final TransactionSet transactionSet = transactions.getAllInAdditionOrder();
+    public void printStatementLine(StatementLine statementLine) {
+        console.printLine(statementLineFormatter.format(statementLine));
+    }
 
-        boolean printHeader = false;
-        for (Transaction current : transactionSet) {
-            printHeader = true;
-        }
-        if (printHeader) {
-            console.printLine("DATE | AMOUNT | BALANCE");
-        }
-
-        Stack<StatementLine> statementLinesInReverseOrder = new Stack<>();
-        int balance = 0;
-        for (final Transaction transaction : transactionSet) {
-            balance += transaction.amount();
-            statementLinesInReverseOrder.push(new StatementLine(transaction, balance));
-        }
-
-        while (!statementLinesInReverseOrder.isEmpty()) {
-            StatementLine currentStatement = statementLinesInReverseOrder.pop();
-            console.printLine(statementLineFormatter.print(currentStatement));
-        }
+    @Override
+    public void printHeader() {
+        console.printLine("DATE | AMOUNT | BALANCE");
     }
 
 }

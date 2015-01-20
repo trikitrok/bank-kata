@@ -19,7 +19,7 @@ public class StatementLineFormatterShould {
         final StatementLineFormatter statementLineFormatter = new StatementLineFormatter();
 
         assertThat(
-                statementLineFormatter.print(new StatementLine(new Transaction(500, A_DATE), 1500)),
+                statementLineFormatter.format(new StatementLine(new Transaction(500, A_DATE), 1500)),
                 is("10/04/2014 | 500.00 | 1500.00"));
     }
 
