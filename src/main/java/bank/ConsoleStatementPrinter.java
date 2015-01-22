@@ -1,21 +1,26 @@
 package bank;
 
+import java.util.Stack;
+
 public class ConsoleStatementPrinter implements StatementPrinter {
 
-	private final StatementLineFormatter statementLineFormatter;
+    private final StatementLineFormatter statementLineFormatter;
+    private Console console;
 
-	public ConsoleStatementPrinter(
-			final StatementLineFormatter statementLineFormatter) {
-		this.statementLineFormatter = statementLineFormatter;
-	}
+    public ConsoleStatementPrinter(final Console console,
+                                   final StatementLineFormatter statementLineFormatter) {
+        this.statementLineFormatter = statementLineFormatter;
+        this.console = console;
+    }
 
-	@Override
-	public void printStatementFor(final Transactions transactions) {
-		final TransactionSet transactionSet = transactions.getAll();
+    @Override
+    public void printStatementLine(StatementLine statementLine) {
+        console.printLine(statementLineFormatter.format(statementLine));
+    }
 
-		for (final Transaction transaction : transactionSet) {
-			statementLineFormatter.print(new StatementLine(transaction, 0));
-		}
-	}
+    @Override
+    public void printHeader() {
+        console.printLine("DATE | AMOUNT | BALANCE");
+    }
 
 }

@@ -2,58 +2,64 @@ package unittests;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
 import org.junit.Test;
 
+import bank.Console;
 import bank.ConsoleStatementPrinter;
-import bank.InMemoryTransactions;
 import bank.StatementLine;
 import bank.StatementLineFormatter;
 import bank.StatementPrinter;
 import bank.SystemDate;
-import bank.TransactionSet;
-import bank.Transactions;
+import bank.Transaction;
 
 public class ConsoleStatementPrinterShould {
 
-	private static final StatementLineFormatter UNUSED_STATEMENT_FORMATTER = null;
+    @Test
+    public void print_the_header() {
 
-	@Test
-	public void asks_the_repository_to_get_transactions() {
-		final StatementPrinter statementPrinter = new ConsoleStatementPrinter(
-				UNUSED_STATEMENT_FORMATTER);
-		final Transactions transactions = mock(Transactions.class);
-		when(transactions.getAll()).thenReturn(
-				new TransactionSet(new ArrayList()));
+        Console console = mock(Console.class);
+        final StatementLineFormatter unusedStatementLinePrinter = null;
 
-		statementPrinter.printStatementFor(transactions);
+        final StatementPrinter statementPrinter = new ConsoleStatementPrinter(console,
+                unusedStatementLinePrinter);
 
-		verify(transactions).getAll();
-	}
+        statementPrinter.printHeader();
 
-	@Test
-	public void prints_each_transaction() {
+        verify(console).printLine("DATE | AMOUNT | BALANCE");
+    }
 
-		final StatementLineFormatter statementLineFormatter = mock(StatementLineFormatter.class);
-		final StatementPrinter statementPrinter = new ConsoleStatementPrinter(
-				statementLineFormatter);
-		final SystemDate systemDate = mock(SystemDate.class);
-		when(systemDate.now()).thenReturn(LocalDateTime.now());
-		final Transactions transactions = new InMemoryTransactions(
-				systemDate);
-		transactions.register(100);
-		transactions.register(-100);
+    @Test
+    public void ask_to_format_a_statement_line() {
 
-		statementPrinter.printStatementFor(transactions);
+        Console console = mock(Console.class);
+        final StatementLineFormatter statementLineFormatter = mock(StatementLineFormatter.class);
+        final StatementPrinter statementPrinter = new ConsoleStatementPrinter(console,
+                statementLineFormatter);
+        StatementLine statementLine = new StatementLine(
+                new Transaction(100, new SystemDate().now()), 100);
 
-		verify(statementLineFormatter, times(2))
-		        .print(any(StatementLine.class));
-	}
+        statementPrinter.printStatementLine(statementLine);
 
+        verify(statementLineFormatter).format(statementLine);
+    }
+
+    @Test
+    // This is a side effect - should fail when changing the formatting
+    public void print_a_formatted_line_on_the_console() {
+        final String anyFormattedStatementLine = "whatever";
+        Console console = mock(Console.class);
+        final StatementLineFormatter statementLineFormatter = mock(StatementLineFormatter.class);
+        when(statementLineFormatter.format(any(StatementLine.class))).thenReturn(
+                anyFormattedStatementLine);
+        final StatementPrinter statementPrinter = new ConsoleStatementPrinter(console,
+                statementLineFormatter);
+        StatementLine statementLine = null;
+
+        statementPrinter.printStatementLine(statementLine);
+
+        verify(console).printLine(anyFormattedStatementLine);
+    }
 }
