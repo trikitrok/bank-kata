@@ -19,9 +19,7 @@ public class Account {
     }
 
     public void printStatement() {
-        // TODO: Demeter Law?
-        Statement statement = transactions.generateStatement();
-        statement.print(statementPrinter);
+        statementPrinter.print(transactions.generateStatement());
     }
 
 }

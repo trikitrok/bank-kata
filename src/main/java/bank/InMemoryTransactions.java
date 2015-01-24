@@ -1,12 +1,11 @@
 package bank;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Stack;
 
 public class InMemoryTransactions implements Transactions {
 
+    public static final int INITIAL_BALANCE = 0;
     private final List<Transaction> transactions;
     private final SystemDate systemDate;
 
@@ -27,19 +26,18 @@ public class InMemoryTransactions implements Transactions {
 
     @Override
     public Statement generateStatement() {
-        Stack<StatementLine> statementLinesInReverseOrder = new Stack<>();
-        int balance = 0;
+        List<StatementLine> statementLines = getStatementLinesInTransactionsOrder();
+
+       return Statement.create(statementLines);
+    }
+
+    private List<StatementLine> getStatementLinesInTransactionsOrder() {
+        List<StatementLine> statementLines = new ArrayList<>();
+        int balance = INITIAL_BALANCE;
         for (final Transaction transaction : transactions) {
             balance += transaction.amount();
-            statementLinesInReverseOrder.push(new StatementLine(transaction, balance));
+            statementLines.add(new StatementLine(transaction, balance));
         }
-
-        List<StatementLine> statementLines = new ArrayList<StatementLine>();
-
-        while (!statementLinesInReverseOrder.isEmpty()) {
-            statementLines.add(statementLinesInReverseOrder.pop());
-        }
-
-        return new Statement(statementLines);
+        return statementLines;
     }
 }

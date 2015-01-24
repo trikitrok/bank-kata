@@ -1,47 +1,33 @@
 package unittests;
 
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verify;
+import bank.*;
+import org.junit.Test;
+import org.mockito.InOrder;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import org.junit.Test;
-
-import bank.Statement;
-import bank.StatementLine;
-import bank.StatementPrinter;
-import bank.SystemDate;
-import bank.Transaction;
+import static org.mockito.Mockito.*;
 
 public class StatementPrinterShould {
 
     @Test
-    public void delegate_printing_to_statementPrinter_when_it_does_have_statementLines() {
-        StatementPrinter statementPrinter = mock(StatementPrinter.class);
-        List<StatementLine> statementLines = new ArrayList<StatementLine>();
-        statementLines.add(new StatementLine(new Transaction(-50, new SystemDate().now()), 50));
-        statementLines.add(new StatementLine(new Transaction(100, new SystemDate().now()), 100));
-
+    public void print_the_statement_directly() {
+        List<StatementLine> statementLines = new ArrayList<>();
+        statementLines.add(new StatementLine(new Transaction(500, new Date(114, 3, 10)), 1400));
+        statementLines.add(new StatementLine(new Transaction(-100, new Date(114, 3, 2)), 900));
+        statementLines.add(new StatementLine(new Transaction(1000, new Date(114, 3, 1)), 1000));
         Statement statement = new Statement(statementLines);
+        Console console = mock(Console.class);
+        InOrder inOrder = inOrder(console);
+        StatementPrinter statementPrinter = new ConsoleStatementPrinter(console, new StatementLineFormatter());
 
-        statement.print(statementPrinter);
+        statementPrinter.print(statement);
 
-        verify(statementPrinter).printHeader();
-        verify(statementPrinter).printStatementLine(statementLines.get(0));
-        verify(statementPrinter).printStatementLine(statementLines.get(1));
-    }
-
-    @Test
-    public void delegate_printing_to_statementPrinter_when_it_has_no_statementLines() {
-        StatementPrinter statementPrinter = mock(StatementPrinter.class);
-        List<StatementLine> statementLines = new ArrayList<StatementLine>();
-
-        Statement statement = new Statement(statementLines);
-
-        statement.print(statementPrinter);
-
-        verify(statementPrinter, never()).printHeader();
-        verify(statementPrinter, never()).printStatementLine(any(StatementLine.class));
+        inOrder.verify(console).printLine("DATE | AMOUNT | BALANCE");
+        inOrder.verify(console).printLine("10/04/2014 | 500.00 | 1400.00");
+        inOrder.verify(console).printLine("02/04/2014 | -100.00 | 900.00");
+        inOrder.verify(console).printLine("01/04/2014 | 1000.00 | 1000.00");
     }
 }

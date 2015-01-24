@@ -1,7 +1,5 @@
 package bank;
 
-import java.util.Stack;
-
 public class ConsoleStatementPrinter implements StatementPrinter {
 
     private final StatementLineFormatter statementLineFormatter;
@@ -14,13 +12,23 @@ public class ConsoleStatementPrinter implements StatementPrinter {
     }
 
     @Override
-    public void printStatementLine(StatementLine statementLine) {
+    public void print(Statement statement) {
+        if (statement.isEmpty()) {
+            return;
+        }
+
+        printHeader();
+
+        for (StatementLine statementLine : statement) {
+            printStatementLine(statementLine);
+        }
+    }
+
+    private void printStatementLine(StatementLine statementLine) {
         console.printLine(statementLineFormatter.format(statementLine));
     }
 
-    @Override
-    public void printHeader() {
+    private void printHeader() {
         console.printLine("DATE | AMOUNT | BALANCE");
     }
-
 }
