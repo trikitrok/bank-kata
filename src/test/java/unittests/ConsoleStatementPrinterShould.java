@@ -1,6 +1,7 @@
 package unittests;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -24,7 +25,6 @@ public class ConsoleStatementPrinterShould {
 
     @Test
     public void ask_to_format_a_statement_line() {
-
         Console console = mock(Console.class);
         final StatementLineFormatter statementLineFormatter = mock(StatementLineFormatter.class);
         final StatementPrinter statementPrinter = new ConsoleStatementPrinter(console,
@@ -38,38 +38,31 @@ public class ConsoleStatementPrinterShould {
 
     @Test
     public void print_a_formatted_line_on_the_console() {
-        final String header = "DATE | AMOUNT | BALANCE";
-        final String formattedStatementLine = "whatever";
+        StatementLine statementLine = null;
+        String formattedStatementLine = "whatever";
         Console console = mock(Console.class);
         StatementLineFormatter statementLineFormatter = mock(StatementLineFormatter.class);
         when(statementLineFormatter.format(any(StatementLine.class)))
                 .thenReturn(formattedStatementLine);
         StatementPrinter statementPrinter = new ConsoleStatementPrinter(console,
                 statementLineFormatter);
-        StatementLine statementLine = null;
-        Statement statement = statement().withLines(statementLine);
 
-        statementPrinter.print(statement);
+        statementPrinter.print(statement().withLines(statementLine));
 
-        verify(console).printLine(header);
+        verify(console).printLine("DATE | AMOUNT | BALANCE");
         verify(console).printLine(formattedStatementLine);
     }
 
     @Test
     public void not_print_on_the_console_when_there_are_no_lines() {
-        final String header = "DATE | AMOUNT | BALANCE";
-        final String formattedStatementLine = "whatever";
         Console console = mock(Console.class);
-        StatementLineFormatter statementLineFormatter = mock(StatementLineFormatter.class);
-        when(statementLineFormatter.format(any(StatementLine.class)))
-                .thenReturn(formattedStatementLine);
+        StatementLineFormatter statementLineFormatter = null;
         StatementPrinter statementPrinter = new ConsoleStatementPrinter(console,
                 statementLineFormatter);
-        Statement statement = statement().withLines();
 
-        statementPrinter.print(statement);
+        statementPrinter.print(statement().withLines());
 
-        verify(console, never()).printLine(header);
-        verify(console, never()).printLine(formattedStatementLine);
+        verify(console, never()).printLine(anyString());
+        verify(console, never()).printLine(anyString());
     }
 }
