@@ -2,8 +2,8 @@ package unittests.helpers;
 
 import java.util.Arrays;
 
-import bank.Statement;
-import bank.StatementLine;
+import bank.accounts.statements.Statement;
+import bank.accounts.statements.StatementLine;
 
 public class StatementBuilder {
     public Statement withLines(StatementLine... statementLines) {

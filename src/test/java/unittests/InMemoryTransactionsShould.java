@@ -13,11 +13,11 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import bank.InMemoryTransactions;
-import bank.Statement;
-import bank.SystemDate;
-import bank.Transaction;
-import bank.Transactions;
+import bank.accounts.statements.Statement;
+import bank.accounts.transactions.InMemoryTransactions;
+import bank.accounts.transactions.Transaction;
+import bank.accounts.transactions.Transactions;
+import bank.system.adapters.SystemDate;
 
 public class InMemoryTransactionsShould {
 

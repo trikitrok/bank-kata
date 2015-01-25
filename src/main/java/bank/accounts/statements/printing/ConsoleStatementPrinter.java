@@ -1,4 +1,8 @@
-package bank;
+package bank.accounts.statements.printing;
+
+import bank.accounts.statements.Statement;
+import bank.accounts.statements.StatementLine;
+import bank.system.adapters.Console;
 
 public class ConsoleStatementPrinter implements StatementPrinter {
 

@@ -13,13 +13,13 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import bank.Console;
-import bank.ConsoleStatementPrinter;
-import bank.Statement;
-import bank.StatementLine;
-import bank.StatementLineFormatter;
-import bank.StatementPrinter;
-import bank.SystemDate;
+import bank.accounts.statements.Statement;
+import bank.accounts.statements.StatementLine;
+import bank.accounts.statements.printing.ConsoleStatementPrinter;
+import bank.accounts.statements.printing.StatementLineFormatter;
+import bank.accounts.statements.printing.StatementPrinter;
+import bank.system.adapters.Console;
+import bank.system.adapters.SystemDate;
 
 public class ConsoleStatementPrinterShould {
 

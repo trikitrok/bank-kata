@@ -8,12 +8,12 @@ import static unittests.helpers.DateBuilder.date;
 import org.junit.Test;
 import org.mockito.InOrder;
 
-import bank.Account;
-import bank.Console;
-import bank.ConsoleStatementPrinter;
-import bank.InMemoryTransactions;
-import bank.StatementLineFormatter;
-import bank.SystemDate;
+import bank.accounts.Account;
+import bank.accounts.statements.printing.ConsoleStatementPrinter;
+import bank.accounts.statements.printing.StatementLineFormatter;
+import bank.accounts.transactions.InMemoryTransactions;
+import bank.system.adapters.Console;
+import bank.system.adapters.SystemDate;
 
 public class AccountStatementShould {
 

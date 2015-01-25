@@ -1,6 +1,8 @@
-package bank;
+package bank.accounts.statements;
 
 import java.util.Date;
+
+import bank.accounts.transactions.Transaction;
 
 public class StatementLine {
 

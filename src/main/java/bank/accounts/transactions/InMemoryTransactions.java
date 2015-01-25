@@ -1,7 +1,11 @@
-package bank;
+package bank.accounts.transactions;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import bank.accounts.statements.Statement;
+import bank.accounts.statements.StatementLine;
+import bank.system.adapters.SystemDate;
 
 public class InMemoryTransactions implements Transactions {
 

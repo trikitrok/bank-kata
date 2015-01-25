@@ -9,11 +9,11 @@ import static unittests.helpers.StatementLineBuilder.statementLine;
 import org.junit.Test;
 import org.mockito.InOrder;
 
-import bank.Console;
-import bank.ConsoleStatementPrinter;
-import bank.Statement;
-import bank.StatementLineFormatter;
-import bank.StatementPrinter;
+import bank.accounts.statements.Statement;
+import bank.accounts.statements.printing.ConsoleStatementPrinter;
+import bank.accounts.statements.printing.StatementLineFormatter;
+import bank.accounts.statements.printing.StatementPrinter;
+import bank.system.adapters.Console;
 
 public class StatementPrinterShould {
 

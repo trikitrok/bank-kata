@@ -1,4 +1,7 @@
-package bank;
+package bank.accounts;
+
+import bank.accounts.statements.printing.StatementPrinter;
+import bank.accounts.transactions.Transactions;
 
 public class Account {
 

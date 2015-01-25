@@ -1,4 +1,4 @@
-package bank;
+package bank.system.adapters;
 
 public class Console {
 

@@ -1,4 +1,6 @@
-package bank;
+package bank.accounts.transactions;
+
+import bank.accounts.statements.Statement;
 
 public interface Transactions {
 

@@ -1,4 +1,4 @@
-package bank;
+package bank.accounts.statements;
 
 import java.util.ArrayList;
 import java.util.Collections;

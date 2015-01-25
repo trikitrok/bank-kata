@@ -7,10 +7,10 @@ import static org.mockito.Mockito.verify;
 import org.junit.Before;
 import org.junit.Test;
 
-import bank.Account;
-import bank.Statement;
-import bank.StatementPrinter;
-import bank.Transactions;
+import bank.accounts.Account;
+import bank.accounts.statements.Statement;
+import bank.accounts.statements.printing.StatementPrinter;
+import bank.accounts.transactions.Transactions;
 
 public class AccountShould {
     StatementPrinter statementPrinter;

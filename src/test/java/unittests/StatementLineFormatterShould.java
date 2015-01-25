@@ -7,7 +7,7 @@ import static unittests.helpers.StatementLineBuilder.statementLine;
 
 import org.junit.Test;
 
-import bank.StatementLineFormatter;
+import bank.accounts.statements.printing.StatementLineFormatter;
 
 public class StatementLineFormatterShould {
 
