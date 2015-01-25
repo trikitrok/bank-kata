@@ -23,14 +23,14 @@ public class AccountShould {
     }
 
     @Test
-    public void register_transaction_for_a_deposit() {
+    public void register_transaction_with_a_positive_amount_for_a_deposit() {
         account.deposit(100);
 
         verify(transactions).register(100);
     }
 
     @Test
-    public void register_transaction_for_a_withdraw() {
+    public void register_transaction_with_a_negative_amount_for_a_withdraw() {
         account.withdraw(100);
 
         verify(transactions).register(-100);
