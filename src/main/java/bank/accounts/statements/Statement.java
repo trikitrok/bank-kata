@@ -9,9 +9,6 @@ public class Statement implements Iterable<StatementLine> {
 
     private final List<StatementLine> statementLines;
 
-    /**
-     * Expects statementLines in printing order (ie, reversed)
-     */
     public Statement(List<StatementLine> statementLines) {
         this.statementLines = statementLines;
     }
