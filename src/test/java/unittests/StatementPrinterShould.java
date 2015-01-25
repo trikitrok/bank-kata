@@ -4,6 +4,7 @@ import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static unittests.helpers.DateBuilder.date;
 import static unittests.helpers.StatementBuilder.statement;
+import static unittests.helpers.StatementLineBuilder.statementLine;
 
 import org.junit.Test;
 import org.mockito.InOrder;
@@ -11,19 +12,16 @@ import org.mockito.InOrder;
 import bank.Console;
 import bank.ConsoleStatementPrinter;
 import bank.Statement;
-import bank.StatementLine;
 import bank.StatementLineFormatter;
 import bank.StatementPrinter;
-import bank.Transaction;
 
 public class StatementPrinterShould {
 
     @Test
     public void print_a_formatted_statement_to_the_console() {
-        Statement statement = statement().withLines(
-                new StatementLine(new Transaction(500, date(10, 4, 2014)), 1400),
-                new StatementLine(new Transaction(-100, date(2, 4, 2014)), 900),
-                new StatementLine(new Transaction(1000, date(1, 4, 2014)), 1000));
+        Statement statement = statement().withLines(statementLine(500, date(10, 4, 2014), 1400),
+                                                    statementLine(-100, date(2, 4, 2014), 900),
+                                                    statementLine(1000, date(1, 4, 2014), 1000));
 
         Console console = mock(Console.class);
         InOrder inOrder = inOrder(console);

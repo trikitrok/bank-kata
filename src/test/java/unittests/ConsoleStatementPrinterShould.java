@@ -6,6 +6,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static unittests.helpers.StatementBuilder.statement;
+import static unittests.helpers.StatementLineBuilder.statementLine;
 
 import java.util.Arrays;
 
@@ -18,7 +19,6 @@ import bank.StatementLine;
 import bank.StatementLineFormatter;
 import bank.StatementPrinter;
 import bank.SystemDate;
-import bank.Transaction;
 
 public class ConsoleStatementPrinterShould {
 
@@ -29,8 +29,7 @@ public class ConsoleStatementPrinterShould {
         final StatementLineFormatter statementLineFormatter = mock(StatementLineFormatter.class);
         final StatementPrinter statementPrinter = new ConsoleStatementPrinter(console,
                 statementLineFormatter);
-        StatementLine statementLine = new StatementLine(
-                new Transaction(100, new SystemDate().now()), 100);
+        StatementLine statementLine = statementLine(100, new SystemDate().now(), 100);
 
         statementPrinter.print(new Statement(Arrays.asList(statementLine)));
 
