@@ -24,7 +24,7 @@ import bank.SystemDate;
 public class ConsoleStatementPrinterShould {
 
     @Test
-    public void ask_to_format_a_statement_line() {
+    public void format_statement_lines() {
         Console console = mock(Console.class);
         final StatementLineFormatter statementLineFormatter = mock(StatementLineFormatter.class);
         final StatementPrinter statementPrinter = new ConsoleStatementPrinter(console,
@@ -54,14 +54,15 @@ public class ConsoleStatementPrinterShould {
     }
 
     @Test
-    public void not_print_on_the_console_when_there_are_no_lines() {
+    public void neither_format_nor_print_on_the_console_when_there_are_no_statement_lines() {
         Console console = mock(Console.class);
-        StatementLineFormatter statementLineFormatter = null;
+        StatementLineFormatter statementLineFormatter = mock(StatementLineFormatter.class);
         StatementPrinter statementPrinter = new ConsoleStatementPrinter(console,
                 statementLineFormatter);
 
         statementPrinter.print(statement().withLines());
 
+        verify(statementLineFormatter, never()).format(any(StatementLine.class));
         verify(console, never()).printLine(anyString());
         verify(console, never()).printLine(anyString());
     }
