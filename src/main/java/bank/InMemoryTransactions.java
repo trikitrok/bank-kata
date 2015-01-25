@@ -15,7 +15,7 @@ public class InMemoryTransactions implements Transactions {
     }
 
     @Override
-    public void register(final int amount) {
+    public void register(final float amount) {
         transactions.add(new Transaction(amount, systemDate.now()));
     }
 

@@ -5,14 +5,14 @@ import java.util.Date;
 public class StatementLine {
 
     private final Transaction transaction;
-    private final int balance;
+    private final float balance;
 
-    public StatementLine(final Transaction transaction, final int balance) {
+    public StatementLine(final Transaction transaction, final float balance) {
         this.transaction = transaction;
         this.balance = balance;
     }
 
-    public int amount() {
+    public float amount() {
         return transaction.amount();
     }
 
@@ -20,7 +20,7 @@ public class StatementLine {
         return transaction.date();
     }
 
-    public int balance() {
+    public float balance() {
         return balance;
     }
 
@@ -28,7 +28,7 @@ public class StatementLine {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + balance;
+        result = prime * result + Float.floatToIntBits(balance);
         result = prime * result + ((transaction == null) ? 0 : transaction.hashCode());
         return result;
     }
@@ -42,7 +42,7 @@ public class StatementLine {
         if (getClass() != obj.getClass())
             return false;
         StatementLine other = (StatementLine) obj;
-        if (balance != other.balance)
+        if (Float.floatToIntBits(balance) != Float.floatToIntBits(other.balance))
             return false;
         if (transaction == null) {
             if (other.transaction != null)
@@ -51,5 +51,4 @@ public class StatementLine {
             return false;
         return true;
     }
-
 }

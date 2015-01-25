@@ -2,7 +2,7 @@ package bank;
 
 public interface Transactions {
 
-    void register(int amount);
+    void register(float amount);
 
     Statement generateStatement();
 }

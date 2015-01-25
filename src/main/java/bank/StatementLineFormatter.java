@@ -1,5 +1,7 @@
 package bank;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -13,8 +15,9 @@ public class StatementLineFormatter {
                 + formatMoney(statementLine.balance());
     }
 
-    private String formatMoney(final int amount) {
-        return amount + ".00";
+    private String formatMoney(final float amount) {
+        NumberFormat formatter = new DecimalFormat("#0.00");
+        return formatter.format(amount);
     }
 
     private String formatDate(final Date date) {

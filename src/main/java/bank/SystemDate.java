@@ -7,5 +7,4 @@ public class SystemDate {
     public Date now() {
         return new Date();
     }
-
 }

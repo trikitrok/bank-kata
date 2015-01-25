@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-public class Statement implements  Iterable<StatementLine>{
+public class Statement implements Iterable<StatementLine> {
 
     private final List<StatementLine> statementLines;
 
@@ -14,6 +14,23 @@ public class Statement implements  Iterable<StatementLine>{
      */
     public Statement(List<StatementLine> statementLines) {
         this.statementLines = statementLines;
+    }
+
+    public boolean isEmpty() {
+        return this.statementLines.isEmpty();
+    }
+
+    @Override
+    public Iterator<StatementLine> iterator() {
+        return this.statementLines.iterator();
+    }
+
+    public static Statement create(List<StatementLine> statementLinesInTransactionsOrder) {
+        final ArrayList<StatementLine> reversedList = new ArrayList<>(
+                statementLinesInTransactionsOrder);
+        Collections.reverse(reversedList);
+
+        return new Statement(reversedList);
     }
 
     @Override
@@ -39,21 +56,5 @@ public class Statement implements  Iterable<StatementLine>{
         } else if (!statementLines.equals(other.statementLines))
             return false;
         return true;
-    }
-
-    public boolean isEmpty() {
-        return this.statementLines.isEmpty();
-    }
-
-    @Override
-    public Iterator<StatementLine> iterator() {
-        return this.statementLines.iterator();
-    }
-
-    public static Statement create(List<StatementLine> statementLinesInTransactionsOrder) {
-        final ArrayList<StatementLine> reversedList = new ArrayList<>(statementLinesInTransactionsOrder);
-        Collections.reverse(reversedList);
-
-        return new Statement(reversedList);
     }
 }

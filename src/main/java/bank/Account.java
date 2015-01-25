@@ -10,11 +10,11 @@ public class Account {
         this.statementPrinter = statementPrinter;
     }
 
-    public void deposit(final int amount) {
+    public void deposit(final float amount) {
         transactions.register(amount);
     }
 
-    public void withdraw(final int amount) {
+    public void withdraw(final float amount) {
         transactions.register(-amount);
     }
 
