@@ -1,12 +1,12 @@
 package unittests;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import bank.Account;
+import bank.Statement;
 import bank.StatementPrinter;
 import bank.Transactions;
 
@@ -34,5 +34,14 @@ public class AccountShould {
         account.withdraw(100);
 
         verify(transactions).register(-100);
+    }
+
+    @Test
+    public void tell_to_generate_and_print_a_statement() {
+        account.deposit(100);
+        account.printStatement();
+
+        verify(transactions).generateStatement();
+        verify(statementPrinter).print(any(Statement.class));
     }
 }
