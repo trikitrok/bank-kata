@@ -13,7 +13,7 @@ import bank.accounts.statements.Statement;
 import bank.accounts.statements.printing.ConsoleStatementPrinter;
 import bank.accounts.statements.printing.StatementLineFormatter;
 import bank.accounts.statements.printing.StatementPrinter;
-import bank.system.adapters.Console;
+import bank.system.Console;
 
 public class StatementPrinterShould {
 

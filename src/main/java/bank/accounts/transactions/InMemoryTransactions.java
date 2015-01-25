@@ -5,7 +5,7 @@ import java.util.List;
 
 import bank.accounts.statements.Statement;
 import bank.accounts.statements.StatementLine;
-import bank.system.adapters.SystemDate;
+import bank.system.SystemDate;
 
 public class InMemoryTransactions implements Transactions {
 

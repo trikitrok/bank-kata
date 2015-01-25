@@ -2,7 +2,7 @@ package bank.accounts.statements.printing;
 
 import bank.accounts.statements.Statement;
 import bank.accounts.statements.StatementLine;
-import bank.system.adapters.Console;
+import bank.system.Console;
 
 public class ConsoleStatementPrinter implements StatementPrinter {
 

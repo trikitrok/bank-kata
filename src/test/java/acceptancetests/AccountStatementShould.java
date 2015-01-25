@@ -12,8 +12,8 @@ import bank.accounts.Account;
 import bank.accounts.statements.printing.ConsoleStatementPrinter;
 import bank.accounts.statements.printing.StatementLineFormatter;
 import bank.accounts.transactions.InMemoryTransactions;
-import bank.system.adapters.Console;
-import bank.system.adapters.SystemDate;
+import bank.system.Console;
+import bank.system.SystemDate;
 
 public class AccountStatementShould {
 

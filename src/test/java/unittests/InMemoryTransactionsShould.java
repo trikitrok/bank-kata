@@ -17,7 +17,7 @@ import bank.accounts.statements.Statement;
 import bank.accounts.transactions.InMemoryTransactions;
 import bank.accounts.transactions.Transaction;
 import bank.accounts.transactions.Transactions;
-import bank.system.adapters.SystemDate;
+import bank.system.SystemDate;
 
 public class InMemoryTransactionsShould {
 
