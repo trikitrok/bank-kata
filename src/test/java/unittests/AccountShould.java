@@ -25,21 +25,21 @@ public class AccountShould {
     }
 
     @Test
-    public void register_transaction_with_a_positive_amount_for_a_deposit() {
+    public void record_transaction_with_a_positive_amount_for_a_deposit() {
         account.deposit(100);
 
         verify(transactions).recordTransactionOf(100);
     }
 
     @Test
-    public void register_transaction_with_a_negative_amount_for_a_withdraw() {
+    public void record_transaction_with_a_negative_amount_for_a_withdraw() {
         account.withdraw(100);
 
         verify(transactions).recordTransactionOf(-100);
     }
 
     @Test
-    public void tell_to_generate_and_print_a_statement() {
+    public void print_a_statement() {
         account.printStatement();
 
         verify(transactions).generateStatement();
