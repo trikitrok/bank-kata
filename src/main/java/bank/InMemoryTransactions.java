@@ -26,7 +26,7 @@ public class InMemoryTransactions implements Transactions {
         return Statement.create(statementLines);
     }
 
-    public Boolean wasRegistered(final Transaction transaction) {
+    public Boolean hasAlreadyRegistered(final Transaction transaction) {
         return transactions.contains(transaction);
     }
 
