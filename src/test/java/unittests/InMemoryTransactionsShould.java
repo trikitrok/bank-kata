@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static unittests.helpers.StatementBuilder.aStatement;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,49 +19,48 @@ import bank.Statement;
 import bank.StatementLine;
 import bank.SystemDate;
 import bank.Transaction;
+import bank.Transactions;
 
 public class InMemoryTransactionsShould {
 
     private static final Date A_DATE = new Date(2014, 11, 23, 20, 4);
-    private int amount;
-    private SystemDate systemDate;
-    private InMemoryTransactions transactions;
-
-    @Before
-    public void setUp() {
-        amount = 1;
-        systemDate = mock(SystemDate.class);
-        when(systemDate.now()).thenReturn(A_DATE);
-        transactions = new InMemoryTransactions(systemDate);
-    }
 
     @Test
     public void store_a_transaction() {
-        transactions.register(amount);
-        assertThat(transactions.hasAlreadyRegistered(new Transaction(amount, A_DATE)), is(true));
+        SystemDate systemDate = mock(SystemDate.class);
+        when(systemDate.now()).thenReturn(A_DATE);
+        InMemoryTransactions transactions = new InMemoryTransactions(systemDate);
+
+        transactions.register(1);
+        assertThat(transactions.hasAlreadyRegistered(new Transaction(1, A_DATE)), is(true));
     }
 
     @Test
     public void not_find_not_stored_transaction() {
-        transactions.register(amount);
+        SystemDate systemDate = mock(SystemDate.class);
+        when(systemDate.now()).thenReturn(A_DATE);
+        InMemoryTransactions transactions = new InMemoryTransactions(systemDate);
 
-        assertThat(transactions.hasAlreadyRegistered(new Transaction(-amount, A_DATE)), is(false));
+        transactions.register(3);
+
+        assertThat(transactions.hasAlreadyRegistered(new Transaction(-3, A_DATE)), is(false));
     }
 
     @Test
     public void generate_a_statement() {
-        systemDate = mock(SystemDate.class);
+        SystemDate systemDate = mock(SystemDate.class);
         when(systemDate.now()).thenReturn(new Date(114, 2, 10)).thenReturn(new Date(114, 2, 11));
+        Transactions transactions = new InMemoryTransactions(systemDate);
         transactions = new InMemoryTransactions(systemDate);
         transactions.register(100);
         transactions.register(-50);
-        List<StatementLine> statementLines = new ArrayList<StatementLine>();
-        statementLines.add(new StatementLine(new Transaction(-50, new Date(114, 2, 11)), 50));
-        statementLines.add(new StatementLine(new Transaction(100, new Date(114, 2, 10)), 100));
-        Statement expectedStatement = new Statement(statementLines);
 
         Statement statement = transactions.generateStatement();
 
-        assertThat(statement, equalTo(expectedStatement));
+        assertThat(
+                statement,
+                equalTo(aStatement().withLines(
+                        new StatementLine(new Transaction(-50, new Date(114, 2, 11)), 50),
+                        new StatementLine(new Transaction(100, new Date(114, 2, 10)), 100))));
     }
 }
