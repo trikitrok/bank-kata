@@ -2,8 +2,7 @@ package unittests;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-
-import java.util.Date;
+import static unittests.helpers.DateBuilder.date;
 
 import org.junit.Test;
 
@@ -15,11 +14,11 @@ public class StatementLineFormatterShould {
 
     @Test
     public void format_a_statement_line() {
-        final Date A_DATE = new Date(114, 3, 10, 0, 0);
-        final StatementLineFormatter statementLineFormatter = new StatementLineFormatter();
+        StatementLineFormatter statementLineFormatter = new StatementLineFormatter();
 
-        assertThat(statementLineFormatter.format(new StatementLine(new Transaction(500, A_DATE),
-                1500)), is("10/04/2014 | 500.00 | 1500.00"));
+        assertThat(statementLineFormatter.format(new StatementLine(
+                           new Transaction(500, date(10, 4, 2014)), 1500)),
+                   is("10/04/2014 | 500.00 | 1500.00"));
     }
 
 }

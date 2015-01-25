@@ -2,13 +2,12 @@ package unittests;
 
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
-
-import java.util.Date;
+import static unittests.helpers.DateBuilder.date;
+import static unittests.helpers.StatementBuilder.aStatement;
 
 import org.junit.Test;
 import org.mockito.InOrder;
 
-import static unittests.helpers.StatementBuilder.aStatement;
 import bank.Console;
 import bank.ConsoleStatementPrinter;
 import bank.Statement;
@@ -22,9 +21,9 @@ public class StatementPrinterShould {
     @Test
     public void print_a_formatted_statement_to_the_console() {
         Statement statement = aStatement().withLines(
-                new StatementLine(new Transaction(500, new Date(114, 3, 10)), 1400),
-                new StatementLine(new Transaction(-100, new Date(114, 3, 2)), 900),
-                new StatementLine(new Transaction(1000, new Date(114, 3, 1)), 1000));
+                new StatementLine(new Transaction(500, date(10, 4, 2014)), 1400),
+                new StatementLine(new Transaction(-100, date(2, 4, 2014)), 900),
+                new StatementLine(new Transaction(1000, date(1, 4, 2014)), 1000));
 
         Console console = mock(Console.class);
         InOrder inOrder = inOrder(console);

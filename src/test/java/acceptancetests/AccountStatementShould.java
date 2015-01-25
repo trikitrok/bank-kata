@@ -1,9 +1,9 @@
 package acceptancetests;
 
 import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.*;
-
-import java.util.Date;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static unittests.helpers.DateBuilder.date;
 
 import org.junit.Test;
 import org.mockito.InOrder;
@@ -22,8 +22,8 @@ public class AccountStatementShould {
 
         Console console = mock(Console.class);
         SystemDate systemDate = mock(SystemDate.class);
-        when(systemDate.now()).thenReturn(new Date(114, 3, 1)).thenReturn(new Date(114, 3, 2))
-                .thenReturn(new Date(114, 3, 10));
+        when(systemDate.now()).thenReturn(date(1, 4, 2014)).thenReturn(date(2, 4, 2014))
+                .thenReturn(date(10, 4, 2014));
 
         Account account = new Account(new ConsoleStatementPrinter(console,
                 new StatementLineFormatter()), new InMemoryTransactions(systemDate));
