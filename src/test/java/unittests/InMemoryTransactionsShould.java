@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static unittests.helpers.DateBuilder.date;
-import static unittests.helpers.StatementBuilder.aStatement;
+import static unittests.helpers.StatementBuilder.statement;
 
 import java.util.Date;
 
@@ -56,7 +56,7 @@ public class InMemoryTransactionsShould {
         Statement statement = transactions.generateStatement();
 
         assertThat(statement,
-                   equalTo(aStatement().withLines(new StatementLine(
+                   equalTo(statement().withLines(new StatementLine(
                                                           new Transaction(-50, date(11, 3, 2014)),
                                                           50),
                                                   new StatementLine(

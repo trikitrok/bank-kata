@@ -3,7 +3,7 @@ package unittests;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static unittests.helpers.DateBuilder.date;
-import static unittests.helpers.StatementBuilder.aStatement;
+import static unittests.helpers.StatementBuilder.statement;
 
 import org.junit.Test;
 import org.mockito.InOrder;
@@ -20,7 +20,7 @@ public class StatementPrinterShould {
 
     @Test
     public void print_a_formatted_statement_to_the_console() {
-        Statement statement = aStatement().withLines(
+        Statement statement = statement().withLines(
                 new StatementLine(new Transaction(500, date(10, 4, 2014)), 1400),
                 new StatementLine(new Transaction(-100, date(2, 4, 2014)), 900),
                 new StatementLine(new Transaction(1000, date(1, 4, 2014)), 1000));

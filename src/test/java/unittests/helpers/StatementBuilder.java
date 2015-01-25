@@ -10,7 +10,7 @@ public class StatementBuilder {
         return new Statement(Arrays.asList(statementLines));
     }
 
-    public static StatementBuilder aStatement() {
+    public static StatementBuilder statement() {
         return new StatementBuilder();
     }
 }
