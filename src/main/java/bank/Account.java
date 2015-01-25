@@ -11,11 +11,11 @@ public class Account {
     }
 
     public void deposit(final float amount) {
-        transactions.register(amount);
+        transactions.recordTransactionOf(amount);
     }
 
     public void withdraw(final float amount) {
-        transactions.register(-amount);
+        transactions.recordTransactionOf(-amount);
     }
 
     public void printStatement() {

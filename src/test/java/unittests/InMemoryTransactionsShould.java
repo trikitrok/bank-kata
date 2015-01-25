@@ -29,7 +29,8 @@ public class InMemoryTransactionsShould {
         when(systemDate.now()).thenReturn(ANY_DATE);
         InMemoryTransactions transactions = new InMemoryTransactions(systemDate);
 
-        transactions.register(1);
+        transactions.recordTransactionOf(1);
+
         assertThat(transactions.hasAlreadyRegistered(new Transaction(1, ANY_DATE)), is(true));
     }
 
@@ -39,19 +40,19 @@ public class InMemoryTransactionsShould {
         when(systemDate.now()).thenReturn(ANY_DATE);
         InMemoryTransactions transactions = new InMemoryTransactions(systemDate);
 
-        transactions.register(3);
+        transactions.recordTransactionOf(3);
 
         assertThat(transactions.hasAlreadyRegistered(new Transaction(-3, ANY_DATE)), is(false));
     }
 
     @Test
-    public void generate_a_statement() {
+    public void generate_a_statement_with_lines_in_reverse_transaction_recording_order() {
         SystemDate systemDate = mock(SystemDate.class);
         when(systemDate.now()).thenReturn(date(10, 3, 2014)).thenReturn(date(11, 3, 2014));
         Transactions transactions = new InMemoryTransactions(systemDate);
         transactions = new InMemoryTransactions(systemDate);
-        transactions.register(100);
-        transactions.register(-50);
+        transactions.recordTransactionOf(100);
+        transactions.recordTransactionOf(-50);
 
         Statement statement = transactions.generateStatement();
 
