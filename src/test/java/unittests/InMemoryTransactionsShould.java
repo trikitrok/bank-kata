@@ -25,7 +25,7 @@ public class InMemoryTransactionsShould {
     private static final Date A_DATE = new Date(2014, 11, 23, 20, 4);
     private int amount;
     private SystemDate systemDate;
-    private Transactions transactions;
+    private InMemoryTransactions transactions;
 
     @Before
     public void setUp() {
@@ -38,14 +38,14 @@ public class InMemoryTransactionsShould {
     @Test
     public void store_a_transaction() {
         transactions.register(amount);
-        assertThat(transactions.contains(new Transaction(amount, A_DATE)), is(true));
+        assertThat(transactions.wasRegistered(new Transaction(amount, A_DATE)), is(true));
     }
 
     @Test
     public void not_find_not_stored_transaction() {
         transactions.register(amount);
 
-        assertThat(transactions.contains(new Transaction(-amount, A_DATE)), is(false));
+        assertThat(transactions.wasRegistered(new Transaction(-amount, A_DATE)), is(false));
     }
 
     @Test

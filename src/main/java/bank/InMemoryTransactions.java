@@ -20,15 +20,14 @@ public class InMemoryTransactions implements Transactions {
     }
 
     @Override
-    public Boolean contains(final Transaction transaction) {
-        return transactions.contains(transaction);
-    }
-
-    @Override
     public Statement generateStatement() {
         List<StatementLine> statementLines = getStatementLinesInTransactionsOrder();
 
-       return Statement.create(statementLines);
+        return Statement.create(statementLines);
+    }
+
+    public Boolean wasRegistered(final Transaction transaction) {
+        return transactions.contains(transaction);
     }
 
     private List<StatementLine> getStatementLinesInTransactionsOrder() {
