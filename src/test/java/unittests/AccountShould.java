@@ -38,7 +38,6 @@ public class AccountShould {
 
     @Test
     public void tell_to_generate_and_print_a_statement() {
-        account.deposit(100);
         account.printStatement();
 
         verify(transactions).generateStatement();
