@@ -50,7 +50,6 @@ public class InMemoryTransactionsShould {
         SystemDate systemDate = mock(SystemDate.class);
         when(systemDate.now()).thenReturn(date(10, 3, 2014)).thenReturn(date(11, 3, 2014));
         Transactions transactions = new InMemoryTransactions(systemDate);
-        transactions = new InMemoryTransactions(systemDate);
         transactions.recordTransactionOf(100);
         transactions.recordTransactionOf(-50);
 
