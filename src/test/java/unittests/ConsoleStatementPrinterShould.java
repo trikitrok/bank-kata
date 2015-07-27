@@ -49,7 +49,7 @@ public class ConsoleStatementPrinterShould {
         StatementLine statementLine = null;
         String formattedStatementLine = "whatever";
         when(statementLineFormatter
-                .format(any(StatementLine.class)))
+                .format(statementLine))
                 .thenReturn(formattedStatementLine);
 
         statementPrinter.print(statement().withLines(statementLine));
