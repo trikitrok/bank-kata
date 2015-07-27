@@ -20,17 +20,16 @@ public class AccountStatementShould {
 
     @Test
     public void have_the_following_format() {
-
         Console console = mock(Console.class);
         SystemDate systemDate = mock(SystemDate.class);
-        when(systemDate.now()).thenReturn(date(1, 4, 2014)).thenReturn(date(2, 4, 2014))
+        when(systemDate.now())
+                .thenReturn(date(1, 4, 2014))
+                .thenReturn(date(2, 4, 2014))
                 .thenReturn(date(10, 4, 2014));
-
         Account account = new Account(
                 new ConsoleStatementPrinter(console, new StatementLineFormatter()),
                 new InMemoryTransactions(systemDate, new StatementGenerator())
         );
-
         account.deposit(1000);
         account.withdraw(100);
         account.deposit(500);
