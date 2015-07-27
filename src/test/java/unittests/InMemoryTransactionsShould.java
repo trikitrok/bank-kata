@@ -60,7 +60,7 @@ public class InMemoryTransactionsShould {
         transactions.recordTransactionOf(100);
         transactions.recordTransactionOf(-50);
 
-        Statement statement = transactions.generateStatement();
+        Statement statement = transactions.statement();
 
         assertThat(statement,
                 equalTo(statement().withLines(

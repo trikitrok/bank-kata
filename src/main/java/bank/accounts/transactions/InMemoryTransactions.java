@@ -25,7 +25,7 @@ public class InMemoryTransactions implements Transactions {
     }
 
     @Override
-    public Statement generateStatement() {
+    public Statement statement() {
         final float INITIAL_BALANCE = 0;
         return statementGenerator.generateStatementFor(transactions, INITIAL_BALANCE);
     }

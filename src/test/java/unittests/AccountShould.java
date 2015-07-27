@@ -42,7 +42,7 @@ public class AccountShould {
     public void print_a_statement() {
         account.printStatement();
 
-        verify(transactions).generateStatement();
+        verify(transactions).statement();
         verify(statementPrinter).print(any(Statement.class));
     }
 }
