@@ -1,7 +1,5 @@
 package bank.accounts.statements;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,14 +18,6 @@ public class Statement implements Iterable<StatementLine> {
     @Override
     public Iterator<StatementLine> iterator() {
         return this.statementLines.iterator();
-    }
-
-    public static Statement create(List<StatementLine> statementLinesInTransactionsOrder) {
-        final ArrayList<StatementLine> reversedList = new ArrayList<>(
-                statementLinesInTransactionsOrder);
-        Collections.reverse(reversedList);
-
-        return new Statement(reversedList);
     }
 
     @Override
