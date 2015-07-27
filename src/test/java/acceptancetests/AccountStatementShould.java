@@ -5,6 +5,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static unittests.helpers.DateBuilder.date;
 
+import bank.accounts.statements.StatementGenerator;
 import org.junit.Test;
 import org.mockito.InOrder;
 
@@ -25,8 +26,10 @@ public class AccountStatementShould {
         when(systemDate.now()).thenReturn(date(1, 4, 2014)).thenReturn(date(2, 4, 2014))
                 .thenReturn(date(10, 4, 2014));
 
-        Account account = new Account(new ConsoleStatementPrinter(console,
-                new StatementLineFormatter()), new InMemoryTransactions(systemDate));
+        Account account = new Account(
+                new ConsoleStatementPrinter(console, new StatementLineFormatter()),
+                new InMemoryTransactions(systemDate, new StatementGenerator())
+        );
 
         account.deposit(1000);
         account.withdraw(100);

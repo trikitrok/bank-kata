@@ -11,6 +11,7 @@ import static unittests.helpers.StatementLineBuilder.statementLine;
 
 import java.util.Date;
 
+import bank.accounts.statements.StatementGenerator;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,7 +30,7 @@ public class InMemoryTransactionsShould {
     @Before
     public void setUp() throws Exception {
         systemDate = mock(SystemDate.class);
-        transactions = new InMemoryTransactions(systemDate);
+        transactions = new InMemoryTransactions(systemDate, new StatementGenerator());
     }
 
     @Test
@@ -55,7 +56,7 @@ public class InMemoryTransactionsShould {
     public void generate_a_statement_whose_lines_are_in_reverse_transaction_recording_order() {
         SystemDate systemDate = mock(SystemDate.class);
         when(systemDate.now()).thenReturn(date(10, 3, 2014)).thenReturn(date(11, 3, 2014));
-        Transactions transactions = new InMemoryTransactions(systemDate);
+        Transactions transactions = new InMemoryTransactions(systemDate, new StatementGenerator());
         transactions.recordTransactionOf(100);
         transactions.recordTransactionOf(-50);
 

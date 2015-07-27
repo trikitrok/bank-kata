@@ -13,10 +13,10 @@ public class InMemoryTransactions implements Transactions {
     private final SystemDate systemDate;
     private final StatementGenerator statementGenerator;
 
-    public InMemoryTransactions(final SystemDate systemDate) {
-        transactions = new ArrayList<>();
+    public InMemoryTransactions(final SystemDate systemDate, StatementGenerator statementGenerator) {
+        this.statementGenerator = statementGenerator;
+        this.transactions = new ArrayList<>();
         this.systemDate = systemDate;
-        statementGenerator = new StatementGenerator();
     }
 
     @Override
