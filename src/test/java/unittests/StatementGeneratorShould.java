@@ -17,9 +17,10 @@ import static unittests.helpers.StatementLineBuilder.statementLine;
 public class StatementGeneratorShould {
     @Test
     public void create_a_statement_with_statement_lines_in_reverse_transactions_order() {
-        StatementGenerator statementGenerator = new StatementGenerator();
+        final float INITIAL_BALANCE = 0;
+        StatementGenerator generator = new StatementGenerator();
 
-        Statement statement = statementGenerator.generateStatementFor(givenTransactionsList(), 0);
+        Statement statement = generator.generateStatementFor(givenTransactionsList(), INITIAL_BALANCE);
 
         assertThat(statement, equalTo(
                 statement().withLines(
