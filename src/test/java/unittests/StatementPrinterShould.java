@@ -19,14 +19,16 @@ public class StatementPrinterShould {
 
     @Test
     public void print_a_formatted_statement_to_the_console() {
-        Statement statement = statement().withLines(statementLine(500, date(10, 4, 2014), 1400),
-                                                    statementLine(-100, date(2, 4, 2014), 900),
-                                                    statementLine(1000, date(1, 4, 2014), 1000));
-
+        Statement statement = statement().withLines(
+                statementLine(500, date(10, 4, 2014), 1400),
+                statementLine(-100, date(2, 4, 2014), 900),
+                statementLine(1000, date(1, 4, 2014), 1000)
+        );
         Console console = mock(Console.class);
         InOrder inOrder = inOrder(console);
-        StatementPrinter statementPrinter = new ConsoleStatementPrinter(console,
-                new StatementLineFormatter());
+        StatementPrinter statementPrinter = new ConsoleStatementPrinter(
+                console, new StatementLineFormatter()
+        );
 
         statementPrinter.print(statement);
 
