@@ -30,7 +30,7 @@ public class InMemoryTransactions implements Transactions {
         return statementGenerator.generateStatementFor(transactions, INITIAL_BALANCE);
     }
 
-    public Boolean hasAlreadyRegistered(final Transaction transaction) {
+    public Boolean hasAlreadyRecorded(final Transaction transaction) {
         return transactions.contains(transaction);
     }
 

@@ -11,6 +11,7 @@ import static unittests.helpers.StatementLineBuilder.statementLine;
 
 import java.util.Date;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import bank.accounts.statements.Statement;
@@ -22,31 +23,36 @@ import bank.system.SystemDate;
 public class InMemoryTransactionsShould {
 
     private static final Date ANY_DATE = date(23, 12, 2014);
+    private SystemDate systemDate;
+    private InMemoryTransactions transactions;
+
+    @Before
+    public void setUp() throws Exception {
+        systemDate = mock(SystemDate.class);
+        transactions = new InMemoryTransactions(systemDate);
+    }
 
     @Test
-    public void store_a_transaction() {
-        SystemDate systemDate = mock(SystemDate.class);
+    public void record_a_transaction() {
         when(systemDate.now()).thenReturn(ANY_DATE);
-        InMemoryTransactions transactions = new InMemoryTransactions(systemDate);
 
         transactions.recordTransactionOf(1);
 
-        assertThat(transactions.hasAlreadyRegistered(new Transaction(1, ANY_DATE)), is(true));
+        assertThat(transactions.hasAlreadyRecorded(new Transaction(1, ANY_DATE)), is(true));
     }
 
     @Test
-    public void not_find_not_stored_transaction() {
-        SystemDate systemDate = mock(SystemDate.class);
+    public void not_find_a_not_recorded_transaction() {
         when(systemDate.now()).thenReturn(ANY_DATE);
-        InMemoryTransactions transactions = new InMemoryTransactions(systemDate);
+        Transaction notRecordedTransaction = new Transaction(-3, ANY_DATE);
 
         transactions.recordTransactionOf(3);
 
-        assertThat(transactions.hasAlreadyRegistered(new Transaction(-3, ANY_DATE)), is(false));
+        assertThat(transactions.hasAlreadyRecorded(notRecordedTransaction), is(false));
     }
 
     @Test
-    public void generate_a_statement_with_lines_in_reverse_transaction_recording_order() {
+    public void generate_a_statement_whose_lines_are_in_reverse_transaction_recording_order() {
         SystemDate systemDate = mock(SystemDate.class);
         when(systemDate.now()).thenReturn(date(10, 3, 2014)).thenReturn(date(11, 3, 2014));
         Transactions transactions = new InMemoryTransactions(systemDate);
@@ -56,7 +62,8 @@ public class InMemoryTransactionsShould {
         Statement statement = transactions.generateStatement();
 
         assertThat(statement,
-                   equalTo(statement().withLines(statementLine(-50, date(11, 3, 2014), 50),
-                                                 statementLine(100, date(10, 3, 2014), 100))));
+                equalTo(statement().withLines(
+                        statementLine(-50, date(11, 3, 2014), 50),
+                        statementLine(100, date(10, 3, 2014), 100))));
     }
 }
