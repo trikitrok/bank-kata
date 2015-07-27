@@ -21,6 +21,7 @@ public class AccountStatementShould {
     @Test
     public void have_the_following_format() {
         Console console = mock(Console.class);
+        InOrder inOrder = inOrder(console);
         SystemDate systemDate = mock(SystemDate.class);
         when(systemDate.now())
                 .thenReturn(date(1, 4, 2014))
@@ -33,7 +34,6 @@ public class AccountStatementShould {
         account.deposit(1000);
         account.withdraw(100);
         account.deposit(500);
-        InOrder inOrder = inOrder(console);
 
         account.printStatement();
 
