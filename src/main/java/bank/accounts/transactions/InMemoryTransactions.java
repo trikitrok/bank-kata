@@ -1,6 +1,7 @@
 package bank.accounts.transactions;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import bank.accounts.statements.Statement;
@@ -35,12 +36,11 @@ public class InMemoryTransactions implements Transactions {
         public static final float INITIAL_BALANCE = 0;
 
         public Statement generateStatement(List<Transaction> transactions) {
-            List<StatementLine> statementLines = getStatementLinesInTransactionsOrder(transactions);
-
-            return Statement.create(statementLines);
+            List<StatementLine> statementLines = createStatementLinesFromTransactions(transactions);
+            return new Statement(reverseStatementLinesOrder(statementLines));
         }
 
-        private List<StatementLine> getStatementLinesInTransactionsOrder(List<Transaction> transactions) {
+        private List<StatementLine> createStatementLinesFromTransactions(List<Transaction> transactions) {
             List<StatementLine> statementLines = new ArrayList<>();
             float balance = INITIAL_BALANCE;
             for (final Transaction transaction : transactions) {
@@ -48,6 +48,12 @@ public class InMemoryTransactions implements Transactions {
                 statementLines.add(new StatementLine(transaction, balance));
             }
             return statementLines;
+        }
+
+        private List<StatementLine> reverseStatementLinesOrder(List<StatementLine> statementLinesInTransactionsOrder) {
+            final ArrayList<StatementLine> reversedList = new ArrayList<>(statementLinesInTransactionsOrder);
+            Collections.reverse(reversedList);
+            return reversedList;
         }
     }
 }
