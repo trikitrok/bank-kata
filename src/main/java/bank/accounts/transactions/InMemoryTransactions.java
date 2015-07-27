@@ -33,5 +33,4 @@ public class InMemoryTransactions implements Transactions {
     public Boolean hasAlreadyRecorded(final Transaction transaction) {
         return transactions.contains(transaction);
     }
-
 }

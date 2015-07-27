@@ -24,5 +24,4 @@ public class Account {
     public void printStatement() {
         statementPrinter.print(transactions.generateStatement());
     }
-
 }

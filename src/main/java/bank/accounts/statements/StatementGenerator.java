@@ -8,11 +8,16 @@ import java.util.List;
 
 public class StatementGenerator {
     public Statement generateStatementFor(List<Transaction> transactions, float initialBalance) {
-        List<StatementLine> statementLines = createStatementLinesFromTransactions(transactions, initialBalance);
+        List<StatementLine> statementLines = createStatementLinesFromTransactions(
+                transactions, initialBalance
+        );
         return new Statement(reverseStatementLinesOrder(statementLines));
     }
 
-    private List<StatementLine> createStatementLinesFromTransactions(List<Transaction> transactions, float initialBalance) {
+    private List<StatementLine> createStatementLinesFromTransactions(
+            List<Transaction> transactions,
+            float initialBalance
+    ) {
         List<StatementLine> statementLines = new ArrayList<>();
         float balance = initialBalance;
         for (final Transaction transaction : transactions) {
@@ -22,7 +27,9 @@ public class StatementGenerator {
         return statementLines;
     }
 
-    private List<StatementLine> reverseStatementLinesOrder(List<StatementLine> statementLinesInTransactionsOrder) {
+    private List<StatementLine> reverseStatementLinesOrder(
+            List<StatementLine> statementLinesInTransactionsOrder
+    ) {
         final ArrayList<StatementLine> reversedList = new ArrayList<>(statementLinesInTransactionsOrder);
         Collections.reverse(reversedList);
         return reversedList;
