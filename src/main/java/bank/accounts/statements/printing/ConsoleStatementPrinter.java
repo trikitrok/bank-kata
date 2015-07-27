@@ -23,6 +23,10 @@ public class ConsoleStatementPrinter implements StatementPrinter {
 
         printHeader();
 
+        printStatementLines(statement);
+    }
+
+    private void printStatementLines(Statement statement) {
         for (StatementLine statementLine : statement) {
             printStatementLine(statementLine);
         }
