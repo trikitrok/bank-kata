@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class StatementGenerator {
+
     public Statement generateStatementFor(List<Transaction> transactions, float initialBalance) {
         List<StatementLine> statementLines = createStatementLinesFromTransactions(
                 transactions, initialBalance

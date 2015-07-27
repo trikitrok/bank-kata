@@ -25,5 +25,4 @@ public class StatementLineFormatter {
     private String formatDate(final Date date) {
         return new SimpleDateFormat("dd/MM/yyyy").format(date);
     }
-
 }
