@@ -11,6 +11,7 @@ import static unittests.helpers.StatementLineBuilder.statementLine;
 
 import java.util.Arrays;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import bank.accounts.statements.Statement;
@@ -23,12 +24,19 @@ import bank.system.SystemDate;
 
 public class ConsoleStatementPrinterShould {
 
+    private Console console;
+    private StatementLineFormatter statementLineFormatter;
+    private StatementPrinter statementPrinter;
+
+    @Before
+    public void setUp() throws Exception {
+        console = mock(Console.class);
+        statementLineFormatter = mock(StatementLineFormatter.class);
+        statementPrinter = new ConsoleStatementPrinter(console, statementLineFormatter);
+    }
+
     @Test
     public void format_statement_lines() {
-        Console console = mock(Console.class);
-        final StatementLineFormatter statementLineFormatter = mock(StatementLineFormatter.class);
-        final StatementPrinter statementPrinter = new ConsoleStatementPrinter(console,
-                statementLineFormatter);
         StatementLine statementLine = statementLine(100, new SystemDate().now(), 100);
 
         statementPrinter.print(new Statement(Arrays.asList(statementLine)));
@@ -40,12 +48,9 @@ public class ConsoleStatementPrinterShould {
     public void print_a_formatted_line_on_the_console() {
         StatementLine statementLine = null;
         String formattedStatementLine = "whatever";
-        Console console = mock(Console.class);
-        StatementLineFormatter statementLineFormatter = mock(StatementLineFormatter.class);
-        when(statementLineFormatter.format(any(StatementLine.class)))
+        when(statementLineFormatter
+                .format(any(StatementLine.class)))
                 .thenReturn(formattedStatementLine);
-        StatementPrinter statementPrinter = new ConsoleStatementPrinter(console,
-                statementLineFormatter);
 
         statementPrinter.print(statement().withLines(statementLine));
 
@@ -55,11 +60,6 @@ public class ConsoleStatementPrinterShould {
 
     @Test
     public void neither_format_nor_print_on_the_console_when_there_are_no_statement_lines() {
-        Console console = mock(Console.class);
-        StatementLineFormatter statementLineFormatter = mock(StatementLineFormatter.class);
-        StatementPrinter statementPrinter = new ConsoleStatementPrinter(console,
-                statementLineFormatter);
-
         statementPrinter.print(statement().withLines());
 
         verify(statementLineFormatter, never()).format(any(StatementLine.class));
