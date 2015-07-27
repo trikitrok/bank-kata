@@ -2,8 +2,8 @@ package unittests;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static unittests.helpers.DateBuilder.date;
-import static unittests.helpers.StatementLineBuilder.statementLine;
+import static unittests.helpers.DateFactory.date;
+import static unittests.helpers.StatementFactory.statementLine;
 
 import org.junit.Test;
 

@@ -7,7 +7,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static unittests.helpers.StatementBuilder.statement;
-import static unittests.helpers.StatementLineBuilder.statementLine;
+import static unittests.helpers.StatementFactory.statementLine;
 
 import java.util.Arrays;
 

@@ -2,9 +2,9 @@ package unittests;
 
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
-import static unittests.helpers.DateBuilder.date;
+import static unittests.helpers.DateFactory.date;
 import static unittests.helpers.StatementBuilder.statement;
-import static unittests.helpers.StatementLineBuilder.statementLine;
+import static unittests.helpers.StatementFactory.statementLine;
 
 import org.junit.Test;
 import org.mockito.InOrder;

@@ -1,7 +1,12 @@
 package unittests.helpers;
 
-/**
- * Created by trikitrok on 27/07/15.
- */
+import bank.accounts.transactions.Transaction;
+
+import java.util.Date;
+
 public class TransactionFactory {
+
+    public static Transaction transaction(float amount, Date date) {
+        return new Transaction(amount, date);
+    }
 }

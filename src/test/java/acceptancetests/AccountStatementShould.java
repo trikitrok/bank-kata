@@ -3,7 +3,7 @@ package acceptancetests;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static unittests.helpers.DateBuilder.date;
+import static unittests.helpers.DateFactory.date;
 
 import bank.accounts.statements.StatementGenerator;
 import org.junit.Test;

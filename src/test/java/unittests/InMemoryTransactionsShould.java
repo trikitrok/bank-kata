@@ -5,9 +5,9 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static unittests.helpers.DateBuilder.date;
+import static unittests.helpers.DateFactory.date;
 import static unittests.helpers.StatementBuilder.statement;
-import static unittests.helpers.StatementLineBuilder.statementLine;
+import static unittests.helpers.StatementFactory.statementLine;
 
 import java.util.Date;
 

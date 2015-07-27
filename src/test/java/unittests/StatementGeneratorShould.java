@@ -10,9 +10,10 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static unittests.helpers.DateBuilder.date;
+import static unittests.helpers.DateFactory.date;
 import static unittests.helpers.StatementBuilder.statement;
-import static unittests.helpers.StatementLineBuilder.statementLine;
+import static unittests.helpers.StatementFactory.statementLine;
+import static unittests.helpers.TransactionFactory.transaction;
 
 public class StatementGeneratorShould {
     @Test
@@ -30,8 +31,8 @@ public class StatementGeneratorShould {
 
     private List<Transaction> givenTransactionsList() {
         List<Transaction> transactionsList = new ArrayList<>();
-        transactionsList.add(new Transaction(100, date(10, 3, 2014)));
-        transactionsList.add(new Transaction(-50, date(11, 3, 2014)));
+        transactionsList.add(transaction(100, date(10, 3, 2014)));
+        transactionsList.add(transaction(-50, date(11, 3, 2014)));
         return transactionsList;
     }
 }
