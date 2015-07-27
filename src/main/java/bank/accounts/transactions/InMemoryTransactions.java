@@ -9,12 +9,11 @@ import bank.system.SystemDate;
 
 public class InMemoryTransactions implements Transactions {
 
-    public static final float INITIAL_BALANCE = 0;
     private final List<Transaction> transactions;
     private final SystemDate systemDate;
 
     public InMemoryTransactions(final SystemDate systemDate) {
-        transactions = new ArrayList<Transaction>();
+        transactions = new ArrayList<>();
         this.systemDate = systemDate;
     }
 
@@ -25,22 +24,30 @@ public class InMemoryTransactions implements Transactions {
 
     @Override
     public Statement generateStatement() {
-        List<StatementLine> statementLines = getStatementLinesInTransactionsOrder();
-
-        return Statement.create(statementLines);
+        return new StatementGenerator().generateStatement(transactions);
     }
 
     public Boolean hasAlreadyRegistered(final Transaction transaction) {
         return transactions.contains(transaction);
     }
 
-    private List<StatementLine> getStatementLinesInTransactionsOrder() {
-        List<StatementLine> statementLines = new ArrayList<>();
-        float balance = INITIAL_BALANCE;
-        for (final Transaction transaction : transactions) {
-            balance += transaction.amount();
-            statementLines.add(new StatementLine(transaction, balance));
+    class StatementGenerator {
+        public static final float INITIAL_BALANCE = 0;
+
+        public Statement generateStatement(List<Transaction> transactions) {
+            List<StatementLine> statementLines = getStatementLinesInTransactionsOrder(transactions);
+
+            return Statement.create(statementLines);
         }
-        return statementLines;
+
+        private List<StatementLine> getStatementLinesInTransactionsOrder(List<Transaction> transactions) {
+            List<StatementLine> statementLines = new ArrayList<>();
+            float balance = INITIAL_BALANCE;
+            for (final Transaction transaction : transactions) {
+                balance += transaction.amount();
+                statementLines.add(new StatementLine(transaction, balance));
+            }
+            return statementLines;
+        }
     }
 }
